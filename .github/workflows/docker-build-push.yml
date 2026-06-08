@@ -8,7 +8,7 @@ name: Docker Build and Push
 on:
   push:
     branches:
-      - main
+      - master
 
 # Required permissions for GitHub OIDC token and reading repository contents
 permissions:
