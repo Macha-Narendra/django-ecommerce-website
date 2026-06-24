@@ -2,7 +2,7 @@
 
 Minimal Django ecommerce demo with basic product creation and browsing.
 
-Quick start:
+## Quick Setup
 
 1. Create a virtualenv and install requirements:
 
@@ -12,7 +12,20 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-2. Apply migrations and create a superuser:
+2. **Generate a secure Django secret key:**
+
+```powershell
+python manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+
+3. Copy the example `.env` file and add your generated secret key:
+
+```powershell
+copy .env.example .env
+# Edit .env and replace DJANGO_SECRET_KEY with the generated value
+```
+
+4. Apply migrations and create a superuser:
 
 ```powershell
 python manage.py migrate
@@ -20,16 +33,24 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-3. Open http://127.0.0.1:8000/
+5. Open http://127.0.0.1:8000/
 
 ## Docker
 
 This project is now configured to run with a separate PostgreSQL database service.
 
-Copy the example `.env` file and edit values before running.
+Copy the development or production example file and edit values before running.
+
+For local development:
 
 ```powershell
-copy .env.example .env
+copy .env.dev.example .env
+```
+
+For production-like deployment:
+
+```powershell
+copy .env.prod.example .env
 ```
 
 Build and run the development container:
@@ -61,7 +82,7 @@ The app still falls back to SQLite when `DATABASE_HOST` is not set.
 Two CI/CD workflows are configured:
 
 ### 1. Django CI (`.github/workflows/ci.yml`)
-Runs on every push and pull request to `main`:
+Runs on every push and pull request to `master`:
 - Python setup
 - Dependency install
 - Django migrations
